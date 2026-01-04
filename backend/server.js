@@ -7,10 +7,14 @@ dotenv.config();
 
 const port = process.env.PORT || 3000;
 const authRoutes = require('./routes/auth');
+const taskRoutes = require('./routes/taskroute');
+
+
 
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
+app.use('/api', taskRoutes);
 
 
  
