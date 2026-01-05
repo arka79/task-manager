@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+
 const taskSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -12,15 +13,22 @@ const taskSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['pending', 'in-progress', 'completed'],
+        enum: ['pending', 'completed'],
         default: 'pending'
     },
     dueDate: {
-        type: Date
+        type: Date,
+        required: true,
+        default: Date.now,
     },
     createdAt: {
         type: Date,
         default: Date.now
+    },
+   userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User',
+        required: true
     }
 });
 
