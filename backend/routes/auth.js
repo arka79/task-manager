@@ -4,7 +4,7 @@ const bcrypt = require('bcryptjs');
 
 const router = express.Router();
 
-// Helper function moved outside the route for cleaner code
+
 async function hashPassword(password) {
     if (!password) return null;
     const salt = await bcrypt.genSalt(10);
@@ -16,7 +16,7 @@ router.post('/register', async (req, res) => {
     try {
         const { name, email, password } = req.body;
 
-        // 1. Validation Guard (Prevents the bcrypt crash)
+       
         if (!name || !email || !password) {
             return res.status(400).json({ message: 'All fields are required' });
         }
@@ -26,7 +26,7 @@ router.post('/register', async (req, res) => {
             return res.status(400).json({ message: 'User already exists' });
         }
 
-        // 2. Hash and Create
+        
         const hashedPassword = await hashPassword(password);
         const newUser = new User({ 
             name, 
@@ -52,7 +52,7 @@ router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
 
-        // Validation Guard
+       
         if (!email || !password) {
             return res.status(400).json({ message: 'Email and password are required' });
         }
@@ -70,7 +70,7 @@ router.post('/login', async (req, res) => {
         res.status(200).json({
             message: 'Login successful',
             user: { 
-                id: existingUser._id, // Dashboard will use this 'id'
+                id: existingUser._id,
                 name: existingUser.name, 
                 email: existingUser.email 
             }
